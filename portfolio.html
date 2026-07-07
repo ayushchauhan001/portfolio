@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ayush Chauhan — Developer & Event Lead</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0B0E14;
+    --bg-alt:#10141C;
+    --panel:#131824;
+    --text:#E9EDF3;
+    --text-dim:#8891A3;
+    --line:#232938;
+    --amber:#E8A33D;
+    --teal:#3FC6B0;
+    --amber-dim:#5A481F;
+    --teal-dim:#1B4842;
+    --radius:14px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'IBM Plex Sans',sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  ::selection{background:var(--amber);color:#0B0E14;}
+
+  a{color:inherit;text-decoration:none;}
+
+  .mono{font-family:'IBM Plex Mono',monospace;}
+
+  /* subtle background texture */
+  .grain{
+    position:fixed; inset:0; pointer-events:none; z-index:0; opacity:0.035;
+    background-image:radial-gradient(circle at 1px 1px, #fff 1px, transparent 0);
+    background-size:22px 22px;
+  }
+
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    display:flex; justify-content:space-between; align-items:center;
+    padding:22px clamp(20px,5vw,64px);
+    backdrop-filter:blur(10px);
+    background:rgba(11,14,20,0.6);
+    border-bottom:1px solid var(--line);
+  }
+  .logo{
+    font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:15px;
+    letter-spacing:0.02em;
+    display:flex; align-items:center; gap:10px;
+  }
+  .logo .dot{width:8px;height:8px;border-radius:50%;background:var(--teal);box-shadow:0 0 10px var(--teal);}
+  nav{display:flex; gap:clamp(14px,3vw,32px); font-size:13px;}
+  .mono.navlink{color:var(--text-dim); transition:color .2s;}
+  .mono.navlink:hover{color:var(--amber);}
+  .navlink span{color:var(--text-dim); margin-right:4px;}
+
+  section{position:relative; z-index:1; padding:0 clamp(20px,6vw,80px);}
+
+  /* ---------- HERO / BADGE ---------- */
+  .hero{
+    min-height:100vh;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    padding-top:100px; padding-bottom:60px;
+    text-align:center;
+  }
+  .eyebrow{
+    font-size:12px; letter-spacing:0.18em; text-transform:uppercase;
+    color:var(--text-dim); margin-bottom:22px;
+  }
+  .eyebrow .amber{color:var(--amber);}
+
+  .badge-wrap{
+    perspective:1200px;
+    margin-bottom:38px;
+  }
+  .lanyard{
+    width:2px; height:70px; margin:0 auto;
+    background:repeating-linear-gradient(180deg, var(--amber) 0 8px, transparent 8px 14px);
+    opacity:0.7;
+  }
+  .badge{
+    width:min(330px,80vw);
+    background:linear-gradient(165deg, var(--panel), #0d1119);
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding:26px 26px 22px;
+    box-shadow:0 30px 60px -20px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.02) inset;
+    transform-style:preserve-3d;
+    transition:transform .15s ease-out;
+    position:relative;
+  }
+  .badge::before{
+    content:'';
+    position:absolute; top:14px; left:50%; transform:translateX(-50%);
+    width:44px; height:6px; border-radius:4px; background:var(--bg);
+    box-shadow:inset 0 1px 3px rgba(0,0,0,0.8);
+  }
+  .badge-top{
+    display:flex; justify-content:space-between; align-items:center;
+    margin-top:16px; margin-bottom:20px;
+  }
+  .badge-tag{font-size:10px; letter-spacing:0.14em; color:var(--text-dim);}
+  .badge-id{font-size:10px; letter-spacing:0.1em; color:var(--teal);}
+  .avatar{
+    width:76px; height:76px; border-radius:50%; margin:0 auto 16px;
+    background:conic-gradient(from 210deg, var(--teal), var(--amber), var(--teal));
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 0 0 4px var(--bg-alt), 0 0 0 5px var(--line);
+  }
+  .avatar span{
+    width:66px; height:66px; border-radius:50%; background:var(--panel);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:22px;
+  }
+  .badge h1{
+    font-family:'Space Grotesk',sans-serif; font-size:22px; font-weight:600;
+    margin-bottom:6px;
+  }
+  .badge .role{font-size:12px; color:var(--text-dim); margin-bottom:18px;}
+  .badge-meta{
+    display:flex; justify-content:space-between; align-items:flex-end;
+    border-top:1px dashed var(--line); padding-top:14px;
+  }
+  .badge-meta div{text-align:left;}
+  .badge-meta .k{font-size:9px; letter-spacing:0.1em; color:var(--text-dim); text-transform:uppercase;}
+  .badge-meta .v{font-size:12px; margin-top:2px;}
+  .barcode{
+    height:26px; width:64px;
+    background:repeating-linear-gradient(90deg, var(--text) 0 2px, transparent 2px 4px, var(--text) 4px 5px, transparent 5px 8px);
+    opacity:0.5;
+  }
+
+  .hero h2{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:600;
+    font-size:clamp(30px,5.2vw,58px);
+    line-height:1.08;
+    max-width:820px;
+    margin-top:8px;
+  }
+  .hero h2 .accent{color:var(--amber);}
+  .hero p.sub{
+    max-width:560px; margin:22px auto 0; color:var(--text-dim);
+    font-size:15px; line-height:1.7;
+  }
+  .hero-links{display:flex; gap:14px; margin-top:34px; flex-wrap:wrap; justify-content:center;}
+  .btn{
+    font-family:'IBM Plex Mono',monospace; font-size:12.5px; letter-spacing:0.03em;
+    padding:12px 22px; border-radius:999px; border:1px solid var(--line);
+    transition:all .2s ease; display:inline-flex; align-items:center; gap:8px;
+  }
+  .btn.primary{background:var(--amber); color:#0B0E14; border-color:var(--amber); font-weight:500;}
+  .btn.primary:hover{background:#f3b455;}
+  .btn.ghost:hover{border-color:var(--teal); color:var(--teal);}
+
+  .scroll-cue{
+    position:absolute; bottom:28px; left:50%; transform:translateX(-50%);
+    font-size:10px; letter-spacing:0.15em; color:var(--text-dim);
+    display:flex; flex-direction:column; align-items:center; gap:8px;
+  }
+  .scroll-cue .line{width:1px; height:34px; background:linear-gradient(var(--text-dim), transparent); animation:pulse 2s infinite;}
+  @keyframes pulse{0%,100%{opacity:0.3}50%{opacity:1}}
+
+  /* ---------- SECTION HEADERS (schedule strip) ---------- */
+  .track-head{
+    display:flex; align-items:baseline; gap:16px;
+    margin:0 0 42px;
+    padding-bottom:16px; border-bottom:1px solid var(--line);
+  }
+  .track-head .tnum{font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--text-dim);}
+  .track-head h3{font-family:'Space Grotesk',sans-serif; font-size:28px; font-weight:600;}
+  .track-head .fill{flex:1; height:1px; background:var(--line);}
+  .track-head .track-badge{
+    font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.1em;
+    padding:5px 10px; border-radius:999px; border:1px solid;
+  }
+  .track-badge.dev{color:var(--teal); border-color:var(--teal-dim); background:rgba(63,198,176,0.06);}
+  .track-badge.lead{color:var(--amber); border-color:var(--amber-dim); background:rgba(232,163,61,0.06);}
+
+  main > section{padding-top:110px; padding-bottom:20px;}
+  .wrap{max-width:1080px; margin:0 auto;}
+
+  /* ---------- ABOUT ---------- */
+  .about-grid{display:grid; grid-template-columns:1.3fr 1fr; gap:56px;}
+  .about-grid p{color:var(--text-dim); font-size:15.5px; line-height:1.85; margin-bottom:16px;}
+  .about-grid strong{color:var(--text); font-weight:500;}
+  .stat-list{display:flex; flex-direction:column; gap:0;}
+  .stat-list .stat{
+    padding:18px 0; border-bottom:1px solid var(--line);
+    display:flex; justify-content:space-between; align-items:baseline;
+  }
+  .stat-list .stat:first-child{padding-top:0;}
+  .stat .label{font-size:12.5px; color:var(--text-dim);}
+  .stat .val{font-family:'Space Grotesk',sans-serif; font-size:20px; font-weight:600;}
+
+  /* ---------- EDUCATION timeline ---------- */
+  .timeline{position:relative; padding-left:28px;}
+  .timeline::before{content:'';position:absolute; left:5px; top:6px; bottom:6px; width:1px; background:var(--line);}
+  .tl-item{position:relative; padding-bottom:38px;}
+  .tl-item:last-child{padding-bottom:0;}
+  .tl-item::before{
+    content:''; position:absolute; left:-28px; top:4px; width:11px; height:11px; border-radius:50%;
+    background:var(--bg); border:2px solid var(--teal);
+  }
+  .tl-item.current::before{background:var(--teal); box-shadow:0 0 0 4px var(--teal-dim);}
+  .tl-row{display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:8px;}
+  .tl-item h4{font-family:'Space Grotesk',sans-serif; font-size:19px; font-weight:600;}
+  .tl-item .period{font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:var(--text-dim);}
+  .tl-item .place{color:var(--text-dim); font-size:13.5px; margin-top:4px;}
+  .tl-item .score{
+    display:inline-block; margin-top:10px; font-family:'IBM Plex Mono',monospace;
+    font-size:11px; padding:4px 10px; border-radius:999px; border:1px solid var(--teal-dim); color:var(--teal);
+  }
+
+  /* ---------- SKILLS ---------- */
+  .skills-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px;}
+  .skill-card{
+    border:1px solid var(--line); border-radius:var(--radius); padding:20px;
+    background:var(--panel); transition:border-color .2s, transform .2s;
+  }
+  .skill-card:hover{border-color:var(--teal-dim); transform:translateY(-3px);}
+  .skill-card .si{font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--teal); margin-bottom:10px;}
+  .skill-card h5{font-family:'Space Grotesk',sans-serif; font-size:15.5px; font-weight:600;}
+
+  /* ---------- LEADERSHIP / EVENTS ---------- */
+  .agenda{border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; background:var(--panel);}
+  .agenda-row{
+    display:grid; grid-template-columns:110px 1fr; gap:22px;
+    padding:22px 24px; border-bottom:1px solid var(--line);
+  }
+  .agenda-row:last-child{border-bottom:none;}
+  .agenda-row .tag{font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--amber);}
+  .agenda-row p{color:var(--text-dim); font-size:14.5px; line-height:1.7;}
+  .agenda-row .headline{color:var(--text); font-weight:500; margin-bottom:6px; font-size:15px;}
+
+  /* ---------- CONTACT ---------- */
+  .contact-panel{
+    border:1px solid var(--line); border-radius:20px; padding:clamp(32px,6vw,64px);
+    background:radial-gradient(circle at 20% 0%, rgba(232,163,61,0.07), transparent 60%), var(--panel);
+    text-align:center;
+  }
+  .contact-panel h3{font-family:'Space Grotesk',sans-serif; font-size:clamp(28px,4vw,44px); margin-bottom:16px;}
+  .contact-panel p{color:var(--text-dim); max-width:480px; margin:0 auto 30px; font-size:15px;}
+  .contact-row{display:flex; gap:14px; justify-content:center; flex-wrap:wrap;}
+
+  footer{
+    text-align:center; padding:40px 20px 30px; color:var(--text-dim);
+    font-family:'IBM Plex Mono',monospace; font-size:11.5px;
+    border-top:1px solid var(--line); margin-top:100px;
+  }
+
+  .reveal{opacity:0; transform:translateY(24px); transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  @media (max-width:760px){
+    .about-grid{grid-template-columns:1fr;}
+    .agenda-row{grid-template-columns:1fr; gap:6px;}
+    nav{display:none;}
+  }
+
+  :focus-visible{outline:2px solid var(--teal); outline-offset:3px;}
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important; transition:none !important;}
+    html{scroll-behavior:auto;}
+  }
+</style>
+</head>
+<body>
+<div class="grain"></div>
+
+<header>
+  <div class="logo"><span class="dot"></span>AYUSH<span style="color:var(--text-dim)">.CHAUHAN</span></div>
+  <nav>
+    <a class="mono navlink" href="#about"><span>01</span>About</a>
+    <a class="mono navlink" href="#education"><span>02</span>Education</a>
+    <a class="mono navlink" href="#skills"><span>03</span>Skills</a>
+    <a class="mono navlink" href="#leadership"><span>04</span>Leadership</a>
+    <a class="mono navlink" href="#contact"><span>05</span>Contact</a>
+  </nav>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="eyebrow">GREATER NOIDA, INDIA <span class="amber">·</span> AVAILABLE FOR OPPORTUNITIES</div>
+
+    <div class="badge-wrap">
+      <div class="lanyard"></div>
+      <div class="badge" id="badge">
+        <div class="badge-top">
+          <span class="badge-tag mono">ATTENDEE PASS</span>
+          <span class="badge-id mono">#MCA-25</span>
+        </div>
+        <div class="avatar"><span>AC</span></div>
+        <h1>Ayush Chauhan</h1>
+        <div class="role">Frontend-Leaning Full-Stack Developer</div>
+        <div class="badge-meta">
+          <div>
+            <div class="k">Track</div>
+            <div class="v">Web Dev</div>
+          </div>
+          <div>
+            <div class="k">Status</div>
+            <div class="v" style="color:var(--teal)">MCA · CGPA 8.4</div>
+          </div>
+          <div class="barcode"></div>
+        </div>
+      </div>
+    </div>
+
+    <h2>I build the software<br>and I run the <span class="accent">event</span> it ships at.</h2>
+    <p class="sub">MCA student and BCA graduate who splits time between writing front-end code and organizing the technical events that put that code in front of people — most recently leading logistics for Hackovation, a college-wide hackathon.</p>
+
+    <div class="hero-links">
+      <a class="btn primary" href="mailto:ayushchauhan44008@gmail.com">Email me →</a>
+      <a class="btn ghost" href="tel:+919870970278">+91 98709 70278</a>
+    </div>
+
+    <div class="scroll-cue"><span>SCROLL</span><span class="line"></span></div>
+  </section>
+
+  <section id="about">
+    <div class="wrap">
+      <div class="track-head">
+        <span class="tnum mono">01</span>
+        <h3>About</h3>
+        <span class="fill"></span>
+        <span class="track-badge dev mono">PROFILE</span>
+      </div>
+      <div class="about-grid reveal">
+        <div>
+          <p>I'm currently pursuing an <strong>MCA at Accurate Institute of Management & Technology</strong> in Greater Noida, building on a BCA from Galgotias University. My interest sits at the intersection of <strong>front-end development</strong> and the kind of structured problem-solving that data structures force you into.</p>
+          <p>Outside of coursework, I've spent a lot of time on the organizing side of tech — running workshops, coordinating <strong>Hackovation</strong> end-to-end, and managing the unglamorous logistics (registrations, scheduling, participant flow) that decide whether an event actually works.</p>
+          <p>I'm looking for opportunities where I can keep building web products while putting that leadership and coordination experience to use.</p>
+        </div>
+        <div class="stat-list">
+          <div class="stat"><span class="label">Current CGPA (MCA)</span><span class="val">8.4</span></div>
+          <div class="stat"><span class="label">BCA CGPA</span><span class="val">7.5</span></div>
+          <div class="stat"><span class="label">Languages</span><span class="val">Hindi · English</span></div>
+          <div class="stat"><span class="label">Flagship event led</span><span class="val">Hackovation</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="education">
+    <div class="wrap">
+      <div class="track-head">
+        <span class="tnum mono">02</span>
+        <h3>Education</h3>
+        <span class="fill"></span>
+        <span class="track-badge dev mono">TIMELINE</span>
+      </div>
+      <div class="timeline reveal">
+        <div class="tl-item current">
+          <div class="tl-row">
+            <h4>MCA — Master of Computer Applications</h4>
+            <span class="period mono">SEP 2025 — PRESENT</span>
+          </div>
+          <div class="place">Accurate Institute of Management & Technology, Greater Noida</div>
+          <span class="score">CGPA 8.4</span>
+        </div>
+        <div class="tl-item">
+          <div class="tl-row">
+            <h4>BCA — Bachelor of Computer Applications</h4>
+            <span class="period mono">SEP 2021 — JUN 2024</span>
+          </div>
+          <div class="place">Galgotias University, Greater Noida</div>
+          <span class="score">CGPA 7.5</span>
+        </div>
+        <div class="tl-item">
+          <div class="tl-row">
+            <h4>12th Grade</h4>
+            <span class="period mono">MAY 2020 — APR 2021</span>
+          </div>
+          <div class="place">Ankur Inter College, Puraini, Bijnor</div>
+          <span class="score">76%</span>
+        </div>
+        <div class="tl-item">
+          <div class="tl-row">
+            <h4>10th Grade</h4>
+            <span class="period mono">MAY 2018 — APR 2021</span>
+          </div>
+          <div class="place">Ankur Inter College, Puraini, Bijnor</div>
+          <span class="score">85.5%</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="wrap">
+      <div class="track-head">
+        <span class="tnum mono">03</span>
+        <h3>Skills</h3>
+        <span class="fill"></span>
+        <span class="track-badge dev mono">CAPABILITIES</span>
+      </div>
+      <div class="skills-grid reveal">
+        <div class="skill-card"><div class="si">// BUILD</div><h5>Front-End Development</h5></div>
+        <div class="skill-card"><div class="si">// CORE</div><h5>Data Structures</h5></div>
+        <div class="skill-card"><div class="si">// SOLVE</div><h5>Problem Solving</h5></div>
+        <div class="skill-card"><div class="si">// PLAN</div><h5>Decision Making</h5></div>
+        <div class="skill-card"><div class="si">// LEAD</div><h5>Team Leadership</h5></div>
+        <div class="skill-card"><div class="si">// OWN</div><h5>Responsibility & Accountability</h5></div>
+        <div class="skill-card"><div class="si">// RUN</div><h5>Multitasking</h5></div>
+        <div class="skill-card"><div class="si">// GROW</div><h5>Continuous Learning</h5></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="leadership">
+    <div class="wrap">
+      <div class="track-head">
+        <span class="tnum mono">04</span>
+        <h3>Leadership & Events</h3>
+        <span class="fill"></span>
+        <span class="track-badge lead mono">ON THE GROUND</span>
+      </div>
+      <div class="agenda reveal">
+        <div class="agenda-row">
+          <span class="tag mono">LEAD</span>
+          <div>
+            <div class="headline">Hackovation — College Hackathon</div>
+            <p>Played a key organizing role, collaborating directly with faculty, participants, and student teams to run the event end-to-end.</p>
+          </div>
+        </div>
+        <div class="agenda-row">
+          <span class="tag mono">OPS</span>
+          <div>
+            <div class="headline">Event Logistics & Registration</div>
+            <p>Managed logistics, registrations, scheduling, and participant engagement across multiple college-level technical events and workshops.</p>
+          </div>
+        </div>
+        <div class="agenda-row">
+          <span class="tag mono">TEACH</span>
+          <div>
+            <div class="headline">Technical Workshops & Cyber Security Sessions</div>
+            <p>Coordinated awareness sessions and workshops that gave students hands-on exposure to emerging technologies and cyber security fundamentals.</p>
+          </div>
+        </div>
+        <div class="agenda-row">
+          <span class="tag mono">TEAM</span>
+          <div>
+            <div class="headline">Cross-Functional Coordination</div>
+            <p>Worked across diverse teams and stakeholders, relying on clear communication and steady decision-making to keep events on track.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap">
+      <div class="contact-panel reveal">
+        <h3>Let's build something.</h3>
+        <p>Open to front-end and full-stack roles, internships, and collaborations. Based in Greater Noida — happy to work remote too.</p>
+        <div class="contact-row">
+          <a class="btn primary" href="mailto:ayushchauhan44008@gmail.com">ayushchauhan44008@gmail.com</a>
+          <a class="btn ghost" href="tel:+919870970278">+91 98709 70278</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  © 2026 AYUSH CHAUHAN — BUILT WITH INTENT, NOT A TEMPLATE
+</footer>
+
+<script>
+  // subtle badge tilt on pointer move
+  const badge = document.getElementById('badge');
+  const wrap = document.querySelector('.badge-wrap');
+  wrap.addEventListener('mousemove', (e) => {
+    const r = badge.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width - 0.5;
+    const y = (e.clientY - r.top) / r.height - 0.5;
+    badge.style.transform = `rotateY(${x * 10}deg) rotateX(${-y * 10}deg)`;
+  });
+  wrap.addEventListener('mouseleave', () => {
+    badge.style.transform = 'rotateY(0deg) rotateX(0deg)';
+  });
+
+  // scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(en => {
+      if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
